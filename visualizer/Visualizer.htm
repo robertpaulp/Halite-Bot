@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="google-site-verification" content="UzLAOvN92N2iaw_7HcFXSOc_M-WIe3KFXaozuaNsZo4">
+
+    <title>Visualizer</title>
+
+    <link href="Visualizer_files/bootstrap.css" rel="stylesheet">
+    <link href="Visualizer_files/general.css" rel="stylesheet">
+</head>
+<body onload="init_vis();">
+    <div id="container" class="container">
+        <nav class="navbar navbar-default" id="navvy">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" style="padding: 10px" href="https://halite.io/index.php"><img src="Visualizer_files/full_logo.png" style="height: 100%;"></a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+        </div>
+    </div>
+</nav>
+
+<div id="messageBox"></div>
+
+        <div id="pageContent" class="pageContent text-center">
+            
+    <script async="" src="Visualizer_files/analytics.js"></script><script src="Visualizer_files/jquery.js"></script>
+    <script src="Visualizer_files/bootstrap.js"></script>
+    <script src="Visualizer_files/seedrandom.js"></script>
+    <script src="Visualizer_files/general.js"></script>
+    <script src="Visualizer_files/backend.js"></script>
+    <script src="Visualizer_files/pixi.js"></script>
+    <script src="Visualizer_files/parsereplay.js"></script>
+    <script src="Visualizer_files/visualizer.js"></script>
+    <script type="text/javascript">
+      function init_vis() {
+        var replay_data = 'REPLAY_DATA';
+        var game = textToGame(replay_data, 'FILENAME');
+        showGame(game, $("#pageContent"), null, null, true, false, true);
+      }
+    </script>
+<!--     <script src="Visualizer_files/localVisualizer.js"></script> -->
+
+
+</body></html>
+

@@ -1,0 +1,57 @@
+name: Autograding Tests
+'on':
+- push
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Nume arhiva Etapa 3
+      id: nume-arhiva-etapa-3
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Nume arhiva Etapa 3
+        setup-command: ''
+        command: unzip etapa3.zip -d etapa3Temp
+        timeout: 1
+    - name: make clean etapa 3
+      id: make-clean-etapa-3
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: make clean etapa 3
+        setup-command: ''
+        command: make -C etapa3Temp clean
+        timeout: 1
+    - name: make build etapa 3
+      id: make-build-etapa-3
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: make build etapa 3
+        setup-command: ''
+        command: make -C etapa3Temp build
+        timeout: 5
+    - name: make run etapa 3
+      id: make-run-etapa-3
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: make run etapa 3
+        setup-command: ''
+        command: grep -q "^run:" etapa3Temp/Makefile && echo "Rule exists" || { echo
+          "Rule does not exist"; exit 1; }
+        timeout: 5
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        NUME-ARHIVA-ETAPA-3_RESULTS: "${{steps.nume-arhiva-etapa-3.outputs.result}}"
+        MAKE-CLEAN-ETAPA-3_RESULTS: "${{steps.make-clean-etapa-3.outputs.result}}"
+        MAKE-BUILD-ETAPA-3_RESULTS: "${{steps.make-build-etapa-3.outputs.result}}"
+        MAKE-RUN-ETAPA-3_RESULTS: "${{steps.make-run-etapa-3.outputs.result}}"
+      with:
+        runners: nume-arhiva-etapa-3,make-clean-etapa-3,make-build-etapa-3,make-run-etapa-3
